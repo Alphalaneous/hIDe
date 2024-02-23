@@ -28,7 +28,8 @@ class $modify(AlphaEditLevelLayer, EditLevelLayer){
             return true;
         }
         else {
-            if(Loader::get()->isModLoaded("cvolton.betterinfo") && !this->m_fields->label->isVisible()){
+
+            if(Loader::get()->isModLoaded("cvolton.betterinfo") && this->getChildByID("cvolton.betterinfo/level-id-menu")){
                 
                 CCMenu* menu = dynamic_cast<CCMenu*>(this->getChildByID("cvolton.betterinfo/level-id-menu"));
 
@@ -62,6 +63,9 @@ class $modify(AlphaEditLevelLayer, EditLevelLayer){
             this->m_fields->replacementLabel->setVisible(!visible);
         }
 
+    }
+    static void onModify(auto& self) {
+        self.setHookPriority("EditLevelLayer::init", -10000);
     }
 };
 

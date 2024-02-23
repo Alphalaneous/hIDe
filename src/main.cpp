@@ -4,11 +4,13 @@
 
 using namespace geode::prelude;
 
-class $modify(CCKeyboardDispatcher) {
+bool isShiftHeld = false;
 
-	bool isShiftHeld = false;
+class $modify(MyCCKeyboardDispatcher, CCKeyboardDispatcher) {
+
 
     bool dispatchKeyboardMSG(enumKeyCodes key, bool down, bool arr) {
+
         if (down && (key == KEY_Shift)) {
             
 			if(!isShiftHeld){
