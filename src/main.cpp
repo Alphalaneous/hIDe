@@ -10,19 +10,20 @@ class $modify(MyCCKeyboardDispatcher, CCKeyboardDispatcher) {
 
     bool dispatchKeyboardMSG(enumKeyCodes key, bool down, bool arr) {
 		CCScene* currentScene = CCDirector::sharedDirector()->getRunningScene();
-		MyEditLevelLayer* layer = static_cast<MyEditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
+		EditLevelLayer* layer = typeinfo_cast<EditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
 		if(layer){
+			MyEditLevelLayer* myLayer = static_cast<MyEditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
 			if (down && (key == KEY_Shift)) {
 				if(!isShiftHeld) {
 					isShiftHeld = true;
-					layer->setIDVisible(true);
+					myLayer->setIDVisible(true);
 				}
 				return true;
 			}
 			if (!down && (key == KEY_Shift)) {
 				if(isShiftHeld){
 					isShiftHeld = false;
-					layer->setIDVisible(false);
+					myLayer->setIDVisible(false);
 				}
 				return true;
 			}
