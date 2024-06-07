@@ -8,39 +8,25 @@ bool isShiftHeld = false;
 
 class $modify(MyCCKeyboardDispatcher, CCKeyboardDispatcher) {
 
-
     bool dispatchKeyboardMSG(enumKeyCodes key, bool down, bool arr) {
-
-        if (down && (key == KEY_Shift)) {
-            
-			if(!isShiftHeld){
-				isShiftHeld = true;
-
-				CCScene* currentScene = CCDirector::sharedDirector()->getRunningScene();
-
-				EditLevelLayer* layer = dynamic_cast<EditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
-
-				if(layer){
-					((AlphaEditLevelLayer*)layer)->setIDVisible(true);
+		CCScene* currentScene = CCDirector::sharedDirector()->getRunningScene();
+		MyEditLevelLayer* layer = static_cast<MyEditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
+		if(layer){
+			if (down && (key == KEY_Shift)) {
+				if(!isShiftHeld) {
+					isShiftHeld = true;
+					layer->setIDVisible(true);
 				}
+				return true;
 			}
-            return true;
-        }
-		if (!down && (key == KEY_Shift)) {
-            
-			if(isShiftHeld){
-				isShiftHeld = false;
-
-				CCScene* currentScene = CCDirector::sharedDirector()->getRunningScene();
-
-				EditLevelLayer* layer = dynamic_cast<EditLevelLayer*>(currentScene->getChildren()->objectAtIndex(0));
-
-				if(layer){
-					((AlphaEditLevelLayer*)layer)->setIDVisible(false);
+			if (!down && (key == KEY_Shift)) {
+				if(isShiftHeld){
+					isShiftHeld = false;
+					layer->setIDVisible(false);
 				}
+				return true;
 			}
-            return true;
-        }
+		}
         return CCKeyboardDispatcher::dispatchKeyboardMSG(key, down, arr);
     }
 };

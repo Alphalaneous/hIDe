@@ -8,28 +8,30 @@
 
 using namespace geode::prelude;
 
-class $modify(AlphaEditLevelLayer, EditLevelLayer){
+class $modify(MyEditLevelLayer, EditLevelLayer){
 
-    CCLabelBMFont* label;
-    CCLabelBMFont* replacementLabel;
-    bool shouldSetVisibility = true;
+    struct Fields {
+        CCLabelBMFont* label;
+        CCLabelBMFont* replacementLabel;
+        bool shouldSetVisibility = true;
+    };
 
     bool init(GJGameLevel* p0){
 
-        if(!EditLevelLayer::init(p0)){
+        if(!EditLevelLayer::init(p0)) {
             return false;
         }
 
         this->m_fields->label = dynamic_cast<CCLabelBMFont*>(this->getChildByID("level-id-label"));
         this->m_fields->replacementLabel = CCLabelBMFont::create("ID: Hidden (shift)", "goldFont.fnt");
 
-        if(strcmp(this->m_fields->label->getString(), "ID: na") == 0){
+        if(strcmp(this->m_fields->label->getString(), "ID: na") == 0) {
             this->m_fields->shouldSetVisibility = false;
             return true;
         }
         else {
 
-            if(Loader::get()->isModLoaded("cvolton.betterinfo") && this->getChildByID("cvolton.betterinfo/level-id-menu")){
+            if(Loader::get()->isModLoaded("cvolton.betterinfo") && this->getChildByID("cvolton.betterinfo/level-id-menu")) {
                 
                 CCMenu* menu = dynamic_cast<CCMenu*>(this->getChildByID("cvolton.betterinfo/level-id-menu"));
 
@@ -42,10 +44,8 @@ class $modify(AlphaEditLevelLayer, EditLevelLayer){
                 this->m_fields->replacementLabel->setAnchorPoint(this->m_fields->label->getAnchorPoint());
 
                 sprite->addChild(this->m_fields->replacementLabel);
-
             }
-            else{
-
+            else {
                 this->m_fields->replacementLabel->setPosition(this->m_fields->label->getPosition());
                 this->m_fields->replacementLabel->setScale(this->m_fields->label->getScale());
                 this->m_fields->replacementLabel->setAnchorPoint(this->m_fields->label->getAnchorPoint());
@@ -65,7 +65,7 @@ class $modify(AlphaEditLevelLayer, EditLevelLayer){
 
     }
     static void onModify(auto& self) {
-        self.setHookPriority("EditLevelLayer::init", -10000);
+        (void) self.setHookPriority("EditLevelLayer::init", -10000);
     }
 };
 
