@@ -1,11 +1,11 @@
 {
-	"geode": "4.0.1",
+	"geode": "4.2.0",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
 		"mac": "2.2074"
 	},
-	"version": "v1.1.6",
+	"version": "v1.1.7",
 	"id": "alphalaneous.hide",
 	"name": "hIDe",
 	"developer": "Alphalaneous",
@@ -22,5 +22,8 @@
             "version": ">=v1.12.0-beta.2",
             "importance": "required"
         }
-    ]
+    ],
+	"tags": [
+		"editor", "utility"
+	]
 }
